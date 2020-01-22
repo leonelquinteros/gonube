@@ -17,6 +17,8 @@ const (
 
 // ClientConfig object used for client creation
 type ClientConfig struct {
+	AccessToken  string
+	UserID       string
 	ClientID     string
 	ClientSecret string
 	Debug        bool
@@ -25,6 +27,8 @@ type ClientConfig struct {
 // NewClientConfig constructs a ClientConfig object with the environment variables set as default
 func NewClientConfig() ClientConfig {
 	return ClientConfig{
+		AccessToken:  accessToken,
+		UserID:       userID,
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
 	}
@@ -51,7 +55,7 @@ func (c Client) Request(method, endpoint string, params url.Values, data, respon
 	if err != nil {
 		return err
 	}
-	base.Path = path.Join(base.Path, endpoint)
+	base.Path = path.Join(base.Path, c.config.UserID, endpoint)
 	// Handle root path redirect
 	if endpoint == "" || endpoint == "/" {
 		base.Path += "/"
@@ -81,7 +85,9 @@ func (c Client) Request(method, endpoint string, params url.Values, data, respon
 	req.Header.Set("Content-Type", "application/json")
 
 	// Set Auth
-	//req.SetBasicAuth(username, c.config.APIKey)
+	log.Println(c.config.AccessToken)
+	req.Header.Set("User-Agent", clientName)
+	req.Header.Set("Authentication", "bearer "+c.config.AccessToken)
 
 	// Debug
 	if c.config.Debug {
@@ -124,4 +130,11 @@ func (c Client) Request(method, endpoint string, params url.Values, data, respon
 	}
 
 	return err
+}
+
+// Orders returns a Orders API client
+func (c Client) Orders() Orders {
+	return Orders{
+		Client: c,
+	}
 }
