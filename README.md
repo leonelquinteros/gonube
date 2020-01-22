@@ -3,5 +3,4 @@
 [![GoDoc](https://godoc.org/github.com/leonelquinteros/gonube?status.svg)](https://godoc.org/github.com/leonelquinteros/gonube)
 [![Go Report Card](https://goreportcard.com/badge/github.com/leonelquinteros/gonube)](https://goreportcard.com/report/github.com/leonelquinteros/gonube)
 
-# gonube
-Tiendanube API v1 Go client SDK 
+# Tiendanube API v1 Go client SDK 
