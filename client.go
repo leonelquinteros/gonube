@@ -138,3 +138,10 @@ func (c Client) Orders() Orders {
 		Client: c,
 	}
 }
+
+// Products returns a Products API client
+func (c Client) Products() Products {
+	return Products{
+		Client: c,
+	}
+}
