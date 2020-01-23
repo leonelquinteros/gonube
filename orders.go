@@ -60,6 +60,7 @@ type Order struct {
 type OrderProduct struct {
 	Depth        interface{} `json:"depth"`
 	Height       interface{} `json:"height"`
+	Name         string      `json:"name"`
 	Price        string      `json:"price"`
 	ProductID    int         `json:"product_id"`
 	Quantity     string      `json:"quantity"`
