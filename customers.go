@@ -7,6 +7,7 @@ type Customer struct {
 	ID                 int     `json:"id"`
 	LastOrderID        int     `json:"last_order_id"`
 	Name               string  `json:"name"`
+	Phone              string  `json:"phone"`
 	TotalSpent         string  `json:"total_spent"`
 	TotalSpentCurrency string  `json:"total_spent_currency"`
 	UpdatedAt          string  `json:"updated_at"`
