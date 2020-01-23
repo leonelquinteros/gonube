@@ -67,6 +67,7 @@ type OrderProduct struct {
 	VariantID    string      `json:"variant_id"`
 	Weight       string      `json:"weight"`
 	Width        interface{} `json:"width"`
+	SKU          string      `json:"sku"`
 }
 
 // OrderCoupon data
