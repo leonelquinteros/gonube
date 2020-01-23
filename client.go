@@ -15,6 +15,14 @@ const (
 	apiHost    = "https://api.tiendanube.com/v1"
 )
 
+// AuthResponse data
+type AuthResponse struct {
+	AccessToken string `json:"access_token"`
+	TokenType   string `json:"token_type"`
+	Scope       string `json:"scope"`
+	UserID      string `json:"user_id"`
+}
+
 // ClientConfig object used for client creation
 type ClientConfig struct {
 	AccessToken  string
@@ -46,6 +54,46 @@ func New(cc ClientConfig) Client {
 	return Client{
 		config: cc,
 	}
+}
+
+// GetAccessToken exchanges an authorization code obtained through OAuth2 for a permanent access_token.
+func (c Client) GetAccessToken(code string) (AuthResponse, error) {
+	var r AuthResponse
+	params := url.Values{}
+	params.Set("client_id", c.config.ClientID)
+	params.Set("client_secret", c.config.ClientSecret)
+	params.Set("grant_type", "authorization_code")
+	params.Set("code", code)
+	data := params.Encode()
+
+	authRequest, err := http.NewRequest("POST", "https://www.tiendanube.com/apps/authorize/token", bytes.NewBufferString(data))
+	if err != nil {
+		return r, err
+	}
+
+	// Perform request
+	client := &http.Client{Transport: c.Transport}
+	resp, err := client.Do(authRequest)
+	if err != nil {
+		return r, err
+	}
+	defer resp.Body.Close()
+
+	// Read response
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(body, &r)
+	if err != nil {
+		return r, err
+	}
+
+	// Set current client credentials
+	c.config.AccessToken = r.AccessToken
+	c.config.UserID = r.UserID
+
+	return r, nil
 }
 
 // Request executes any Tiendanube API method using the current client configuration
