@@ -30,6 +30,7 @@ type Order struct {
 	ShippingOptionReference interface{}    `json:"shipping_option_reference"`
 	Status                  string         `json:"status"`
 	Subtotal                string         `json:"subtotal"`
+	Total                   string         `json:"total"`
 	Token                   string         `json:"token"`
 	Discount                string         `json:"discount"`
 	Price                   string         `json:"price"`
