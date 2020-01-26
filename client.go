@@ -69,13 +69,11 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	params.Set("code", code)
 	data := params.Encode()
 
-	//data := fmt.Sprintf("client_id=%s&client_secret=%s&grant_type=authorization_code&code=%s", c.config.ClientID, c.config.ClientSecret, code)
-
 	if c.config.Debug {
-		log.Printf("Sending auth request to https://www.tiendanube.com/apps/authorize/token with payload: %s", data)
+		log.Printf("Sending auth request to https://www.tiendanube.com/apps/authorize/token?%s", data)
 	}
 
-	authRequest, err := http.NewRequest("POST", "https://www.tiendanube.com/apps/authorize/token", bytes.NewBufferString(data))
+	authRequest, err := http.NewRequest("GET", "https://www.tiendanube.com/apps/authorize/token?"+data, nil)
 	if err != nil {
 		return r, err
 	}
