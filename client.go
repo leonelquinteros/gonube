@@ -73,11 +73,10 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 		log.Printf("Sending auth request to https://www.tiendanube.com/apps/authorize/token?%s", data)
 	}
 
-	authRequest, err := http.NewRequest("GET", "https://www.tiendanube.com/apps/authorize/token?"+data, nil)
+	authRequest, err := http.NewRequest("POST", "https://www.tiendanube.com/apps/authorize/token?"+data, bytes.NewBufferString(data))
 	if err != nil {
 		return r, err
 	}
-	authRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	// Perform request
 	client := &http.Client{Transport: c.Transport}
