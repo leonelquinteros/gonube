@@ -3,6 +3,7 @@ package gonube
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,10 +18,12 @@ const (
 
 // AuthResponse data
 type AuthResponse struct {
-	AccessToken string `json:"access_token"`
-	TokenType   string `json:"token_type"`
-	Scope       string `json:"scope"`
-	UserID      string `json:"user_id"`
+	AccessToken      string `json:"access_token"`
+	TokenType        string `json:"token_type"`
+	Scope            string `json:"scope"`
+	UserID           string `json:"user_id"`
+	Error            string `json:"error"`
+	ErrorDescription string `json:"error_description"`
 }
 
 // ClientConfig object used for client creation
@@ -88,14 +91,17 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	if err != nil {
 		return r, err
 	}
-
 	if c.config.Debug {
 		log.Printf("Got auth response: %s", body)
 	}
-
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		return r, err
+	}
+
+	// Validate response
+	if r.Error != "" {
+		return r, fmt.Errorf("%s: %s", r.Error, r.ErrorDescription)
 	}
 
 	// Set current client credentials
