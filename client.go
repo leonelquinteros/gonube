@@ -62,15 +62,14 @@ func New(cc ClientConfig) Client {
 // GetAccessToken exchanges an authorization code obtained through OAuth2 for a permanent access_token.
 func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	var r AuthResponse
-	/* Does Tiendanube cares about parameter order?!
 	params := url.Values{}
 	params.Set("client_id", c.config.ClientID)
 	params.Set("client_secret", c.config.ClientSecret)
 	params.Set("grant_type", "authorization_code")
 	params.Set("code", code)
 	data := params.Encode()
-	*/
-	data := fmt.Sprintf("client_id=%s&client_secret=%s&grant_type=authorization_code&code=%s", c.config.ClientID, c.config.ClientSecret, code)
+
+	//data := fmt.Sprintf("client_id=%s&client_secret=%s&grant_type=authorization_code&code=%s", c.config.ClientID, c.config.ClientSecret, code)
 
 	if c.config.Debug {
 		log.Printf("Sending auth request to https://www.tiendanube.com/apps/authorize/token with payload: %s", data)
