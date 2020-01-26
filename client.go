@@ -71,6 +71,7 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	data := params.Encode()
 	*/
 	data := fmt.Sprintf("client_id=%s&client_secret=%s&grant_type=authorization_code&code=%s", c.config.ClientID, c.config.ClientSecret, code)
+
 	if c.config.Debug {
 		log.Printf("Sending auth request to https://www.tiendanube.com/apps/authorize/token with payload: %s", data)
 	}
@@ -79,6 +80,7 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	if err != nil {
 		return r, err
 	}
+	authRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	// Perform request
 	client := &http.Client{Transport: c.Transport}
