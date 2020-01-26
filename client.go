@@ -90,7 +90,7 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	}
 
 	if c.config.Debug {
-		log.Printf("Got auth response: %s", data)
+		log.Printf("Got auth response: %s", body)
 	}
 
 	err = json.Unmarshal(body, &r)
