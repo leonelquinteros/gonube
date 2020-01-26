@@ -70,13 +70,14 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	data := params.Encode()
 
 	if c.config.Debug {
-		log.Printf("Sending auth request to https://www.tiendanube.com/apps/authorize/token?%s", data)
+		log.Printf("Sending auth request to https://www.tiendanube.com/apps/authorize/token?grant_type=authorization_code with payload: %s", data)
 	}
 
-	authRequest, err := http.NewRequest("POST", "https://www.tiendanube.com/apps/authorize/token?"+data, bytes.NewBufferString(data))
+	authRequest, err := http.NewRequest("POST", "https://www.tiendanube.com/apps/authorize/token?grant_type=authorization_code", bytes.NewBufferString(data))
 	if err != nil {
 		return r, err
 	}
+	authRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
 	// Perform request
 	client := &http.Client{Transport: c.Transport}
