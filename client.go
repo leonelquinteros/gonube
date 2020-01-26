@@ -66,6 +66,10 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	params.Set("code", code)
 	data := params.Encode()
 
+	if c.config.Debug {
+		log.Printf("Sending auth request to https://www.tiendanube.com/apps/authorize/token with payload: %s", data)
+	}
+
 	authRequest, err := http.NewRequest("POST", "https://www.tiendanube.com/apps/authorize/token", bytes.NewBufferString(data))
 	if err != nil {
 		return r, err
@@ -84,6 +88,11 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 	if err != nil {
 		return r, err
 	}
+
+	if c.config.Debug {
+		log.Printf("Got auth response: %s", data)
+	}
+
 	err = json.Unmarshal(body, &r)
 	if err != nil {
 		return r, err
@@ -125,6 +134,11 @@ func (c Client) Request(method, endpoint string, params url.Values, data, respon
 		}
 	}
 
+	// Debug
+	if c.config.Debug {
+		log.Printf("NEW REQUEST TO %s with payload: %s", base.String(), eData)
+	}
+
 	// Create request
 	req, err := http.NewRequest(method, base.String(), bytes.NewBuffer(eData))
 	if err != nil {
@@ -133,14 +147,8 @@ func (c Client) Request(method, endpoint string, params url.Values, data, respon
 	req.Header.Set("Content-Type", "application/json")
 
 	// Set Auth
-	log.Println(c.config.AccessToken)
 	req.Header.Set("User-Agent", clientName)
 	req.Header.Set("Authentication", "bearer "+c.config.AccessToken)
-
-	// Debug
-	if c.config.Debug {
-		log.Printf("NEW REQUEST TO %s", base.String())
-	}
 
 	// Perform request
 	client := &http.Client{Transport: c.Transport}
@@ -158,7 +166,7 @@ func (c Client) Request(method, endpoint string, params url.Values, data, respon
 
 	// Debug
 	if c.config.Debug {
-		log.Printf("RESPONSE FROM %s: \n%s", base.String(), body)
+		log.Printf("RESPONSE FROM %s: %s", base.String(), body)
 	}
 
 	// Handle API errors
