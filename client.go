@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"strconv"
 )
 
 const (
@@ -21,7 +22,7 @@ type AuthResponse struct {
 	AccessToken      string `json:"access_token"`
 	TokenType        string `json:"token_type"`
 	Scope            string `json:"scope"`
-	UserID           string `json:"user_id"`
+	UserID           uint   `json:"user_id"`
 	Error            string `json:"error"`
 	ErrorDescription string `json:"error_description"`
 }
@@ -107,7 +108,7 @@ func (c Client) GetAccessToken(code string) (AuthResponse, error) {
 
 	// Set current client credentials
 	c.config.AccessToken = r.AccessToken
-	c.config.UserID = r.UserID
+	c.config.UserID = strconv.FormatUint(uint64(r.UserID), 10)
 
 	return r, nil
 }
