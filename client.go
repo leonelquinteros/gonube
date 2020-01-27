@@ -125,33 +125,41 @@ func (c Client) Request(method, endpoint string, params url.Values, data, respon
 	if endpoint == "" || endpoint == "/" {
 		base.Path += "/"
 	}
+	uri := base.String()
 
 	// Parse params
-	if params != nil {
-		for k := range params {
-			base.Query().Set(k, params.Get(k))
-		}
+	if params == nil {
+		params = url.Values{}
+	}
+	encodedParams := params.Encode()
+	if encodedParams != "" {
+		uri += "?" + params.Encode()
 	}
 
-	// Parse data
-	var eData []byte
+	// Debug
+	if c.config.Debug {
+		log.Printf("NEW REQUEST TO %s with payload: %+v", base.String(), data)
+	}
+
+	// Create request
+	var req *http.Request
 	if data != nil {
+		var eData []byte
 		eData, err = json.Marshal(data)
+		if err != nil {
+			return err
+		}
+		req, err = http.NewRequest(method, uri, bytes.NewBuffer(eData))
+		if err != nil {
+			return err
+		}
+	} else {
+		req, err = http.NewRequest(method, uri, nil)
 		if err != nil {
 			return err
 		}
 	}
 
-	// Debug
-	if c.config.Debug {
-		log.Printf("NEW REQUEST TO %s with payload: %s", base.String(), eData)
-	}
-
-	// Create request
-	req, err := http.NewRequest(method, base.String(), bytes.NewBuffer(eData))
-	if err != nil {
-		return err
-	}
 	req.Header.Set("Content-Type", "application/json")
 
 	// Set Auth
