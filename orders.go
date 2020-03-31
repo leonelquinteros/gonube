@@ -21,12 +21,12 @@ type Order struct {
 	ShippingStatus          string         `json:"shipping_status"`
 	ShippingTrackingNumber  interface{}    `json:"shipping_tracking_number"`
 	ShippingTrackingURL     interface{}    `json:"shipping_tracking_url"`
-	ShippingMinDays         int            `json:"shipping_min_days"`
-	ShippingMaxDays         int            `json:"shipping_max_days"`
-	ShippingCostOwner       string         `json:"shipping_cost_owner"`
-	ShippingCostCustomer    string         `json:"shipping_cost_customer"`
-	ShippingOption          string         `json:"shipping_option"`
-	ShippingOptionCode      string         `json:"shipping_option_code"`
+	ShippingMinDays         interface{}    `json:"shipping_min_days"`
+	ShippingMaxDays         interface{}    `json:"shipping_max_days"`
+	ShippingCostOwner       interface{}    `json:"shipping_cost_owner"`
+	ShippingCostCustomer    interface{}    `json:"shipping_cost_customer"`
+	ShippingOption          interface{}    `json:"shipping_option"`
+	ShippingOptionCode      interface{}    `json:"shipping_option_code"`
 	ShippingOptionReference interface{}    `json:"shipping_option_reference"`
 	Status                  string         `json:"status"`
 	Subtotal                string         `json:"subtotal"`
@@ -40,16 +40,16 @@ type Order struct {
 	ShippedAt               string         `json:"shipped_at"`
 	Coupon                  []OrderCoupon  `json:"coupon"`
 	Products                []OrderProduct `json:"products"`
-	BillingAddress          string         `json:"billing_address"`
-	BillingCity             string         `json:"billing_city"`
-	BillingCountry          string         `json:"billing_country"`
+	BillingAddress          interface{}    `json:"billing_address"`
+	BillingCity             interface{}    `json:"billing_city"`
+	BillingCountry          interface{}    `json:"billing_country"`
 	BillingDefault          bool           `json:"billing_default"`
 	BillingFloor            interface{}    `json:"billing_floor"`
 	BillingLocality         interface{}    `json:"billing_locality"`
-	BillingNumber           string         `json:"billing_number"`
-	BillingPhone            string         `json:"billing_phone"`
-	BillingProvince         string         `json:"billing_province"`
-	BillingZipcode          string         `json:"billing_zipcode"`
+	BillingNumber           interface{}    `json:"billing_number"`
+	BillingPhone            interface{}    `json:"billing_phone"`
+	BillingProvince         interface{}    `json:"billing_province"`
+	BillingZipcode          interface{}    `json:"billing_zipcode"`
 	Extra                   OrderExtra     `json:"extra"`
 	ShippingPickupType      string         `json:"shipping_pickup_type"`
 	ShippingStoreBranchName interface{}    `json:"shipping_store_branch_name"`
