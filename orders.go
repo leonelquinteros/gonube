@@ -21,8 +21,8 @@ type Order struct {
 	ShippingStatus          string         `json:"shipping_status"`
 	ShippingTrackingNumber  string         `json:"shipping_tracking_number"`
 	ShippingTrackingURL     string         `json:"shipping_tracking_url"`
-	ShippingMinDays         string         `json:"shipping_min_days"`
-	ShippingMaxDays         string         `json:"shipping_max_days"`
+	ShippingMinDays         int            `json:"shipping_min_days"`
+	ShippingMaxDays         int            `json:"shipping_max_days"`
 	ShippingCostOwner       string         `json:"shipping_cost_owner"`
 	ShippingCostCustomer    string         `json:"shipping_cost_customer"`
 	ShippingOption          string         `json:"shipping_option"`
