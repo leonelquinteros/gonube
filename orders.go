@@ -4,11 +4,11 @@ import "net/url"
 
 // Order data
 type Order struct {
-	CancelReason            interface{}    `json:"cancel_reason"`
+	ID                      int            `json:"id"`
 	CreatedAt               string         `json:"created_at"`
+	CancelReason            interface{}    `json:"cancel_reason"`
 	Currency                string         `json:"currency"`
 	Gateway                 string         `json:"gateway"`
-	ID                      int            `json:"id"`
 	LandingSite             string         `json:"landing_site"`
 	Language                string         `json:"language"`
 	LocationID              interface{}    `json:"location_id"`
