@@ -204,9 +204,9 @@ func (c Client) Request(method, endpoint string, params url.Values, data, respon
 	return err
 }
 
-// Orders returns a Orders API client
-func (c Client) Orders() Orders {
-	return Orders{
+// Stores returns a Stores API client
+func (c Client) Stores() Stores {
+	return Stores{
 		Client: c,
 	}
 }
@@ -214,6 +214,13 @@ func (c Client) Orders() Orders {
 // Products returns a Products API client
 func (c Client) Products() Products {
 	return Products{
+		Client: c,
+	}
+}
+
+// Orders returns a Orders API client
+func (c Client) Orders() Orders {
+	return Orders{
 		Client: c,
 	}
 }
