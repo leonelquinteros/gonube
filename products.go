@@ -7,21 +7,22 @@ import (
 
 // Product data
 type Product struct {
-	Attributes     []map[string]string `json:"attributes"`
-	Categories     []Category          `json:"categories"`
-	CreatedAt      string              `json:"created_at"`
-	Description    map[string]string   `json:"description"`
-	Handle         map[string]string   `json:"handle"`
 	ID             int                 `json:"id"`
-	Images         []ProductImage      `json:"images"`
 	Name           map[string]string   `json:"name"`
 	Brand          interface{}         `json:"brand"`
+	Description    map[string]string   `json:"description"`
+	Handle         map[string]string   `json:"handle"`
+	CanonicalURL   string              `json:"canonical_url`
 	SeoTitle       map[string]string   `json:"seo_title"`
 	SeoDescription map[string]string   `json:"seo_description"`
 	Published      bool                `json:"published"`
 	FreeShipping   bool                `json:"free_shipping"`
-	UpdatedAt      string              `json:"updated_at"`
+	Attributes     []map[string]string `json:"attributes"`
+	Categories     []Category          `json:"categories"`
+	Images         []ProductImage      `json:"images"`
 	Variants       []ProductVariant    `json:"variants"`
+	CreatedAt      string              `json:"created_at"`
+	UpdatedAt      string              `json:"updated_at"`
 }
 
 // ProductImage data
