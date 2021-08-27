@@ -2,6 +2,6 @@ package gonube
 
 func getTestClient() Client {
 	c := New(NewClientConfig())
-	c.config.Debug = true
+	//c.config.Debug = true
 	return c
 }

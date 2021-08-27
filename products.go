@@ -12,7 +12,7 @@ type Product struct {
 	Brand          interface{}         `json:"brand"`
 	Description    map[string]string   `json:"description"`
 	Handle         map[string]string   `json:"handle"`
-	CanonicalURL   string              `json:"canonical_url`
+	CanonicalURL   string              `json:"canonical_url"`
 	SeoTitle       map[string]string   `json:"seo_title"`
 	SeoDescription map[string]string   `json:"seo_description"`
 	Published      bool                `json:"published"`

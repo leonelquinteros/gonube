@@ -64,9 +64,9 @@ type OrderProduct struct {
 	Name         string      `json:"name"`
 	Price        string      `json:"price"`
 	ProductID    int         `json:"product_id"`
-	Quantity     string      `json:"quantity"`
+	Quantity     int         `json:"quantity"`
 	FreeShipping bool        `json:"free_shipping"`
-	VariantID    string      `json:"variant_id"`
+	VariantID    int         `json:"variant_id"`
 	Weight       string      `json:"weight"`
 	Width        interface{} `json:"width"`
 	SKU          string      `json:"sku"`
